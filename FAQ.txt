@@ -1,0 +1,69 @@
+1. Can I use a Jupyter Notebook?
+
+Yes.
+
+2. Can I use pyquaternion?
+
+No.
+
+3. Should I use the (limited precision) timing data in the provided .csv file or the frequency given in the assignment document to implement the filters?
+
+You should use the timing data in the provided .csv file to mimic the precision available to the "firmware" you are simulating. 
+
+4. I see erratic behaviour in phi and psi Euler angles when theta approaches ±90 degrees, what is happening? 
+
+We talked about this in class!
+
+(If theta is not your pitch angle, then you need to think of your coordinate system assumptions!)
+
+5. Are all functions in problem 1 necessary for all problems?
+
+No.
+
+6. In LaValle's paper, equation 8, how is q estimated?
+
+q is the previous drift-corrected orientation updated with the latest gyroscope reading, i.e., it is not only the gyroscope integrated value, rather the previous drift corrected orientation, subsequently updated with the latest gyroscope reading.
+
+7. Do I need to take the average of many accelerometer readings as in LaValle's paper?
+
+You do not have too. It will make your orientation estimation more stable though. 
+
+8. XYZ seem mixed up?
+
+You should not make assumptions of what is ‘up’ in relation to the world frame. The dataset has the x,y,z outputs of the IMU but says nothing about the initial, physical orientation of the IMU. In the case of an actual headset, the IMU chip is permanently mounted (and soldered!) at some particular orientation on the PCB board that is fixed and never changes. It is absolutely fine to hardcode which axis you consider as ‘up’. Your first step should always be to scrutinize the data and see what is actually happening. Data never lie! 
+
+9. In LaValle's paper, the order of operations of equations 8 and 10  seems inverted to what I find online.  Which one is correct? 
+
+Technically what you find online, but doing what LaValle is doing will not cost you any marks. 
+
+10. My computer cannot smoothly render in real-time the 3D plots that you are asking. Can I drop some data/frames to make it real time?
+
+Yes you can, but please include a comment in the code and your report about this. 
+
+11. Including the accelerometer data makes for more noisy Euler angles.
+
+This happens when you do not average accelerometer readings (see q.7). You do not have to do it, but you have to comment on what you see in your report. Your choice of alpha values will also have a significant effect on stability (you should try several orders of magnitude for alpha).  
+
+12. How do I know if I have the correct result?
+
+With drift correction, at the end of the 30 second dataset, your angles will be closer to zero (closer to the initial IMU orientation...) than without drift correction. 
+
+13. I am still confused with all the axes!
+
+The ‘up’ IMU axis with respect to gravity is z. First motion happens around the x-axis, then motion happens around the y-axis and final motion happens around the z-axis. 
+
+14. Do I need to make separate graphs for different values of alpha ?
+
+No.
+
+15. What do you mean by 'half' playback speed? 
+
+I mean that the dataset playback should last double the time.
+
+16. I am an L4 student and three pages are very restrictive for the report.
+
+You can use up to four pages if you are L4.
+
+17. When comparing my results with my classmates I get slightly different graphs, especially regarding yaw correction. In many cases yaw angle does not return to zero. 
+
+This is normal, the graph depends on the alpha values that you picked, and the amount of averaging that you might do in the accelerometer/magnetometer values. There is also some residual error due to noise in the magnetometer XY variables anyway. Just comment on what you see in your report.  
